@@ -1,169 +1,116 @@
-const options = ['rock', 'paper', 'scissors'];
-const beat = [
-	'Paper beats rock!',
-	'Rock beats scissors!',
-	'Scissors beats paper!',
-];
+//The initial Score before being incremented
+let botWin=0;
+let playerWin=0;
 
-function computerPlay() {
-	let randomNumber;
-	let choice;
-	randomNumber = Math.floor(Math.random() * 3); /// Gets random number between 0 and 2 inclusive
-	choice = options[randomNumber]; //chooses the first[0], second[1] or third[2] element in the array, depending on the random number
-	console.log('Computer has chosen ' + choice);
-	return choice;
+//user name validation
+function uservali(){
+    user= prompt("Hello! what is your name?");
+    if (user === "" || user === null){
+        alert("Please Enter Your Name")
+        uservali()
+    }else{
+        return user
+    }
+}
+uservali()
+
+
+alert(`Welcome to Rock, Paper, Scissors game ${user} click OK! to begin `);
+
+//The function to allow Bot to choose randomly
+function computerPlay(){
+    let rps,botChoice,random;
+    rps = ["rock","paper","scissors"];
+    random = Math.floor(Math.random() *3);
+    botChoice = rps[random];
+    return  botChoice;
 }
 
-function playRound(playerSelection, computerSelection) {
-	///Checks if it's a tie
-	if (playerSelection == computerSelection) {
-		// console.log(`We have ${playerSelection} vs ${computerSelection}`)
-		return ' it is a Tie';
-	}
-	///If not a tie, checks winner and returns it.
-	else {
-		switch (playerSelection) {
-			case options[0]:
-				if (computerSelection == options[1]) {
-					console.log(beat[0]);
-					return 'Computer';
-				} else {
-					console.log(beat[1]);
-					return 'Player';
-				}
+//The playRound function that return and object with botScore and playerScore
+function playRound(playerSelection,computerSelection){
+    let  rpsDatabase,message,botScore
+    rpsDatabase = {
+        "rock":{"rock": 0.5,"paper":0,"scissors":1},
+        "paper":{"rock": 1,"paper":0.5,"scissors":0},
+        "scissors":{"rock":0,"paper":1,"scissors":0.5}
+    }
+    
+    botScore=rpsDatabase[computerSelection][playerSelection],
+    playerScore =rpsDatabase[playerSelection][computerSelection]
 
-			case options[1]:
-				if (computerSelection == options[0]) {
-					console.log(beat[0]);
-					return 'Player';
-				} else {
-					console.log(beat[2]);
-					return 'Computer';
-				}
+   
+    console.log(`Bot chose ${computerSelection}`);
+    console.log(`You chose! ${player}`);
 
-			case options[2]:
-				if (computerSelection == options[0]) {
-					console.log(beat[1]);
-					return 'Computer';
-				} else {
-					console.log(beat[2]);
-					return 'Player';
-				}
-		}
-	}
+    if (botScore === 1){
+        message = `Bot won! ${computerSelection} beat ${playerSelection}`
+        console.log(message)
+        return ( message, {botScore:1,playerScore:0})
+    }else if (botScore === 0.5){
+        message = `You tied!`
+        console.log(message)
+        return {botScore:0,playerScore:0}
+    }else {
+        message = `You won! ${playerSelection} beat ${computerSelection}`
+        console.log(message)
+        return {botScore:0,playerScore:1}
+    }
+    
 }
 
-function oneRound(playerName) {
-	let choice = prompt(
-		`Let's play, ${playerName}! Choose rock, paper or scissors!`
-	).toLowerCase(); ///Gets the players response to lower case, no matter how they write it.
-	///Checks the player enters a valid option, any other word or null won't work.
-	if (
-		(choice == options[0]) |
-		(choice == options[1]) |
-		(choice == options[2])
-	) {
-		let computerChoice, result;
-		console.log(`${playerName} chose ${choice}!`);
-		computerChoice = computerPlay();
-		result = playRound(choice, computerChoice);
-		///Checks winner/tie
-		switch (result) {
-			case 'Player':
-				console.log(`${playerName} won the round!`);
-				return 'Player';
-			case 'Computer':
-				console.log(`The computer won the round!`);
-				return 'Computer';
-			case 'Tie':
-				console.log(`It's a tie!`);
-				return 'Tie';
-		}
-	}
-	///If the player choice is a word other than rock/paper/scissors or if it's null:
-	else {
-		alert('You need to choose a valid move! (Rock, paper, scissors)');
-		return null;
-	}
+function rpsGame(){
+
+    
+        let botChoice,score
+        rps=["rock","paper","scissors"]
+
+        //Bot and users choice being assigned to variables
+        botChoice = computerPlay()
+        player =  prompt('Choose Rock, Paper or Scissors')
+
+        //validation of rps selection
+        if(player ===rps[0] ||player ===rps[1] ||player ===rps[2]){
+                
+            /*the playRound function receiving  argument
+            values and being assigned to score tobe able to use it object returns*/
+            score = playRound(player.toLowerCase(),botChoice)
+
+            // incrementing of scores after each round
+            botWin += score.botScore
+            playerWin += score.playerScore
+
+            console.log("scores \n",`Computer:${botWin}`,`${user}:${playerWin}`)
+            
+            console.log(`End Of Round ${i+1}`)
+
+            // Alert before each round
+            if(i <4){
+                alert(`Press OK to play Round ${i+2}`)   
+            }
+
+
+            // Last message to declare the winner  of all rounds
+            if (i === 4){
+                if(playerWin > botWin){
+                    console.log(`The Overall Winner is ${user} with ${playerWin} points scores`)
+                }
+                else if(playerWin < botWin){
+                    console.log(`The Overall Winner is Computer with ${botWin} points scores`)
+                }
+                else{
+                    console.log('This was a draw match')
+                }
+            }
+        }
+        //Outcome if invalid entry
+        else{
+            alert("Enter a valid input! ( Rock, Paper or Scissors)")
+            rpsGame()
+        }
+        
+
+    }
+for(i=0;i<5;i++){
+    rpsGame()
 }
 
-///Main function
-
-function game() {
-	let playerPoints = 0,
-		computerPoints = 0,
-		roundNumber = 1,
-		replay;
-	let playerName = prompt("What's your name?");
-	///if the name is not null, which means something was provided in the input, start the game.
-	if (playerName) {
-		///Loop of 5 rounds, unless nothing was provided in the [rock, paper, scissors] input, in which case the round won't count.
-		for (let i = 0; i < 5; i++) {
-			///Calls the round function, giving the player name as a parameter to use in it.
-			let round = oneRound(playerName);
-			///Checks who won or if it was a tie/null.
-			switch (round) {
-				case 'Player':
-					playerPoints++;
-					console.log(
-						`${playerName} = ${playerPoints} | Computer = ${computerPoints} | Round ${roundNumber}`
-					);
-					roundNumber++;
-					break;
-				case 'Computer':
-					computerPoints++;
-					console.log(
-						`${playerName} = ${playerPoints} | Computer = ${computerPoints} | Round ${roundNumber}`
-					);
-					roundNumber++;
-					break;
-				case 'Tie':
-					console.log(
-						`${playerName} = ${playerPoints} | Computer = ${computerPoints} | Round ${roundNumber}`
-					);
-					roundNumber++;
-					break;
-				case null:
-					i--;
-					break;
-			}
-		}
-		///Once it completes the 5 rounds, checks who won more rounds.
-		switch (true) {
-			case playerPoints > computerPoints:
-				console.log(`${playerName} wins the game!`);
-				break;
-			case computerPoints > playerPoints:
-				console.log('The computer wins the game!');
-				break;
-			///In case it's a tie...
-			case computerPoints == playerPoints:
-				let final = 'Tie';
-				///... gets into a loop until the tie is solved.
-				while (final == 'Tie') {
-					console.log("It's a tie! let's try once more!");
-					final = round();
-				}
-				if (final == 'Player') {
-					console.log(`${playerName} wins! Congratulations!`);
-				} else {
-					console.log('The computer wins! Good luck next time!');
-				}
-		}
-		///Once the game is finished, asks if the player wishes to restart the game.
-		replay = confirm('Great game! Do you wanna play again?');
-		///Case Yes, calls the main function again and restarts
-		if (replay) {
-			game();
-		}
-		///Case No, it returns the value stopping the code.
-		return;
-	}
-	///If the name is null, which means nothing was provided in the input or it was cancelled, alert and restart the function
-	else {
-		alert('Please enter your name!');
-		game();
-	}
-}
-
-game();
