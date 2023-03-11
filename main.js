@@ -1,6 +1,27 @@
+//Global variables
+const rps = ['rock', 'paper', 'scissors'];
+
+const rpsDatabase = {
+	rock: { rock: 0.5, paper: 0, scissors: 1 },
+	paper: { rock: 1, paper: 0.5, scissors: 0 },
+	scissors: { rock: 0, paper: 1, scissors: 0.5 },
+};
+
 //The initial Score before being incremented
 let botWin = 0;
 let playerWin = 0;
+//confirm funtion
+function requestToPlay() {
+	let conf = confirm(
+		'Hi this is a rock, paper and Scissors game, do you want to play?'
+	);
+	if (conf === true) {
+		uservali();
+	} else {
+		return console.log('To play the game refresh the page');
+	}
+}
+requestToPlay();
 
 //user name validation
 function uservali() {
@@ -8,6 +29,11 @@ function uservali() {
 	if (user === '') {
 		alert('Please Enter Your Name');
 		uservali();
+	} else if (user === null) {
+		alert(
+			'We are sorry that you dont want to play, Please reload the page to start the game again'
+		);
+		console.log('To play please refresh the page');
 	} else {
 		return user;
 	}
@@ -18,21 +44,13 @@ alert(`Welcome to Rock, Paper, Scissors game ${user} click OK! to begin `);
 
 //The function to allow Bot to choose randomly
 function computerPlay() {
-	let rps, botChoice, random;
-	rps = ['rock', 'paper', 'scissors'];
-	random = Math.floor(Math.random() * 3);
-	botChoice = rps[random];
-	return botChoice;
+	let computerChoice = rps[Math.floor(Math.random() * rps.length)];
+	return computerChoice;
 }
 
 //The playRound function that return and object with botScore and playerScore
 function playRound(playerSelection, computerSelection) {
-	let rpsDatabase, message, botScore;
-	rpsDatabase = {
-		rock: { rock: 0.5, paper: 0, scissors: 1 },
-		paper: { rock: 1, paper: 0.5, scissors: 0 },
-		scissors: { rock: 0, paper: 1, scissors: 0.5 },
-	};
+	let message, botScore;
 
 	(botScore = rpsDatabase[computerSelection][playerSelection]),
 		(playerScore = rpsDatabase[playerSelection][computerSelection]);
@@ -57,7 +75,6 @@ function playRound(playerSelection, computerSelection) {
 
 function rpsGame() {
 	let botChoice, score;
-	rps = ['rock', 'paper', 'scissors'];
 
 	//Bot and users choice being assigned to variables
 	botChoice = computerPlay();
@@ -105,7 +122,7 @@ function rpsGame() {
 		rpsGame();
 	}
 }
-
+/*
 for (i = 0; i < 5; i++) {
 	rpsGame();
-}
+}*/
