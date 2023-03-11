@@ -59,8 +59,8 @@ function playRound(playerSelection,computerSelection){
 }
 
 function rpsGame(){
-    i=0
-    for(i=0;i<5;i++){
+
+    
         let botChoice,score
         rps=["rock","paper","scissors"]
 
@@ -110,6 +110,7 @@ function rpsGame(){
         
 
     }
+for(i=0;i<5;i++){
+    rpsGame()
 }
-rpsGame()
 
