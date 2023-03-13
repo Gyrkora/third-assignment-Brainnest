@@ -115,7 +115,7 @@ function playRound(playerSelection, computerSelection) {
 function scoreCounter(count) {
 	botWin += count.botScore;
 	playerWin += count.playerScore;
-	// console.log(count.botScore);
+	console.log(count.botScore);
 
 	return [botWin, playerWin];
 }
