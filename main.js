@@ -7,6 +7,11 @@ const rpsDatabase = {
 //The initial Score before being incremented
 let botWin = 0;
 let playerWin = 0;
+let score;
+
+// error messages
+const cancel ='Game canceled: If You decide to play the Game kindly refresh the page to begin';
+const finish ='Game finished: If You decide to play the Game kindly refresh the page';
 
 //This funtion handles the users confirmation to play the game
 function handlesUserGameRequestInputs(){
@@ -15,7 +20,7 @@ function handlesUserGameRequestInputs(){
 		uservali()
 	}
 	else{
-		throw console.log( "If You decide to play the Game kindly refresh the page")	
+		throw cancel
 		}
 	}
 handlesUserGameRequestInputs()
@@ -31,7 +36,7 @@ function uservali() {
 		 if(conf){
 			uservali()
 		 }else{
-			throw console.log( "If You decide to play the Game kindly refresh the page to begin")
+			throw cancel
 		 }
 	}
 	else{
@@ -58,7 +63,7 @@ function userChoice(){
 	}
 	else{
 		console.clear()
-		throw console.log( "If You decide to play the Game kindly refresh the page to begin")
+		throw finish
 	}
   }
   
@@ -75,7 +80,7 @@ function userChoice(){
 
 //The playRound function take both the bots and user's choice and return an object with botScore and playerScore
 function playRound(playerSelection, computerSelection) {
-	let playerScore, botScore;
+	let playerScore, botScore
 
 	//this is how each picks the scores
 	botScore = rpsDatabase[computerSelection][playerSelection];
@@ -158,14 +163,28 @@ function replay(){
 		while(replayConfirm){
 			botWin=0
 			playerWin=0
+			
 			console.clear()
 			game()
-			replay()
+			if (playerWin>botWin) {
+				console.log(
+					`Congrats:) The Overall Winner is ${user} with ${playerWin} points scores`
+				)
+				replay()
+			} else if (playerWin<botWin) {
+				console.log(
+					`The Overall Winner is Computer with ${botWin} points scores`
+				)
+				replay()
+			} else {
+				console.log(`This was a draw match with scores ${playerWin}:${botWin}`);
+				replay()
+			}
 		}
 	}
 	else{
 		alert("Hope You Enjoyed see You Another time")
 		console.clear()
-		throw console.log("If You decide to play the Game kindly refresh the page")
+		throw finish
 	}
 }
