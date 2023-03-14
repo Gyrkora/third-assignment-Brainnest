@@ -18,10 +18,10 @@ const finish ='Game finished: If You decide to play the Game kindly refresh the 
 function handlesUserGameRequestInputs(){
     let playerConfirm = confirm("Hi this is a rock, paper and scissors game, press OK if your want to play?");
     if(playerConfirm){
-		uservali()
+		uservali();
 	}
 	else{
-		throw cancel
+		throw cancel;
 		}
 	}
 handlesUserGameRequestInputs()
@@ -37,11 +37,11 @@ function uservali() {
 		 if(conf){
 			uservali()
 		 }else{
-			throw cancel
+			throw cancel;
 		 }
 	}
 	else{
-		return user
+		return user;
 	}
 }
 
@@ -60,11 +60,11 @@ function userChoice(){
   if(playerChoice === null){
     let roundconf= confirm('You pressed "Cancel", press "Ok" to go back or "Cancel" to close the Game')
 	if(roundconf){
-		userChoice()
+		userChoice();
 	}
 	else{
 		console.clear()
-		throw finish
+		throw finish;
 	}
   }
   
@@ -72,7 +72,7 @@ function userChoice(){
   
   if(!rps.includes(playerChoice)){
     alert("Incorrect entry ");
-    return userChoice()
+    return userChoice();
   }
   
   return playerChoice
