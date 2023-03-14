@@ -4,7 +4,7 @@ Third Assignment for Brainnest Company
 
 Github Pages: https://gyrkora.github.io/third-assignment-Brainnest/
 
-Errors to fixed
+Errors fixed
 
 - what happens if we cancel the game
 - the user needs to be always assigned.
