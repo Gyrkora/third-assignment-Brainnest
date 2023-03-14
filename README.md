@@ -7,7 +7,7 @@ Github Pages: https://gyrkora.github.io/third-assignment-Brainnest/
 Errors to fixed
 
 - what happens if we cancel the game
-- the user needs to be always assigned. - we are using the "strict" equal
+- the user needs to be always assigned.
 - errors in the console
 - dont reasign the player in the rpsGame
 - the points should be counted in another function
