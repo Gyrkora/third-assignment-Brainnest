@@ -3,3 +3,16 @@
 Third Assignment for Brainnest Company
 
 Github Pages: https://gyrkora.github.io/third-assignment-Brainnest/
+
+Errors to fix
+
+- what happens if we cancel the game
+- the user needs to be always assigned. - we are using the "strict" equal
+- errors in the console
+- dont reasign the player in the rpsGame
+- the points should be counted in another function
+- the loop shouldn't be in the global scope. It should be inside a function
+
+done
+
+- dont repeat yourselves - don't reassign variables

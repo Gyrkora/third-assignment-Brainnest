@@ -1,3 +1,4 @@
+// global fuctions
 const rps = ['rock', 'paper', 'scissors'];
 const rpsDatabase = {
 		'rock': { 'rock': 0.5, 'paper': 0, 'scissors': 1 },
